@@ -262,8 +262,9 @@ jobs:
       - name: apply patch
         run: |
           git clone https://github.com/zxcccssssssas-eng/GKI-Custom.git gki-patch
+          cd common
           git apply $GITHUB_WORKSPACE/gki-patch/patchs/*.patch 
-
+          cd ..
       - name: Build with retry
         uses: nick-fields/retry@v3
         with:
