@@ -262,7 +262,7 @@ jobs:
       - name: apply patch
         run: |
           git clone https://github.com/zxcccssssssas-eng/GKI-Custom.git gki-patch
-          cd common
+          cd android12-5.10-lts/common
           git apply $GITHUB_WORKSPACE/gki-patch/patchs/*.patch 
           cd ..
       - name: Build with retry
