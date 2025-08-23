@@ -245,10 +245,11 @@ jobs:
           echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> ./common/arch/arm64/configs/gki_defconfig
           git clone https://github.com/zxcccssssssas-eng/GKI-Custom/ config0
           cat ./config0/config/gki_defconfig-android12-5.10.custom >>  ./common/arch/arm64/configs/gki_defconfig
+          cd $GITHUB_WORKSPACE
           git clone https://github.com/zxcccssssssas-eng/GKI-Custom.git gki-patch
-          cd common
+          cd "$CONFIG"/common
           git apply $GITHUB_WORKSPACE/gki-patch/patchs/*.patch 
-          cd ..
+          cd $GITHUB_WORKSPACE
           # Remove check_defconfig
           sed -i 's/check_defconfig//' ./common/build.config.gki
 
