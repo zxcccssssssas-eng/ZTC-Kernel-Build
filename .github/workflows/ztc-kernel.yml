@@ -245,7 +245,10 @@ jobs:
           echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> ./common/arch/arm64/configs/gki_defconfig
           git clone https://github.com/zxcccssssssas-eng/GKI-Custom/ config0
           cat ./config0/config/gki_defconfig-android12-5.10.custom >>  ./common/arch/arm64/configs/gki_defconfig
-          
+          git clone https://github.com/zxcccssssssas-eng/GKI-Custom.git gki-patch
+          cd common
+          git apply $GITHUB_WORKSPACE/gki-patch/patchs/*.patch 
+          cd ..
           # Remove check_defconfig
           sed -i 's/check_defconfig//' ./common/build.config.gki
 
@@ -259,12 +262,8 @@ jobs:
 
           echo "5系:删除dirty字符串"
           sed -i 's/-dirty//' ./common/scripts/setlocalversion
-      - name: apply patch
-        run: |
-          git clone https://github.com/zxcccssssssas-eng/GKI-Custom.git gki-patch
-          cd android12-5.10-lts/common
-          git apply $GITHUB_WORKSPACE/gki-patch/patchs/*.patch 
-          cd ..
+
+
       - name: Build with retry
         uses: nick-fields/retry@v3
         with:
