@@ -247,7 +247,7 @@ jobs:
           cat ./config0/config/gki_defconfig-android12-5.10.custom >>  ./common/arch/arm64/configs/gki_defconfig
           cd $GITHUB_WORKSPACE
           git clone https://github.com/zxcccssssssas-eng/GKI-Custom.git gki-patch
-          cd "$CONFIG"/common
+          cd $CONFIG/common
           git apply $GITHUB_WORKSPACE/gki-patch/patchs/*.patch 
           cd $GITHUB_WORKSPACE
           # Remove check_defconfig
