@@ -243,8 +243,9 @@ jobs:
           echo "CONFIG_KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG=y" >> ./common/arch/arm64/configs/gki_defconfig
           echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> ./common/arch/arm64/configs/gki_defconfig
-          git clone https://github.com/zxcccssssssas-eng/ZTC-Kernel-Build.git config0
-          cat ./config0/config >>  ./common/arch/arm64/configs/gki_defconfig
+          git clone https://github.com/zxcccssssssas-eng/GKI-Custom/ config0
+          cat ./config0/config/gki_defconfig-android12-5.10 >>  ./common/arch/arm64/configs/gki_defconfig
+          
           # Remove check_defconfig
           sed -i 's/check_defconfig//' ./common/build.config.gki
 
@@ -258,7 +259,10 @@ jobs:
 
           echo "5系:删除dirty字符串"
           sed -i 's/-dirty//' ./common/scripts/setlocalversion
-          
+      - name: apply patch
+        run: |
+          git clone https://github.com/zxcccssssssas-eng/GKI-Custom.git gki-patch
+          git apply $GITHUB_WORKSPACE/gki-patch/patchs/*.patch 
 
       - name: Build with retry
         uses: nick-fields/retry@v3
